@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simon dice</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style type="text/css">
+        .cuadro {
+            height: 200px;
+            opacity: 0.5;
+            transition: opacity 500ms;
+        }
+
+        #cuadro-1 {
+            background-color: red;
+        }
+
+        #cuadro-2 {
+            background-color: blue;
+        }
+
+        #cuadro-3 {
+            background-color: yellow;
+        }
+
+        #cuadro-4 {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="alert alert-primary" role="alert" id="estado"><!-- --></div>
+
+        </div>
+        <div class="col-sm-2">
+            <p>Ronda # <strong id="ronda">0</strong></p>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary">Empezar</button>
+        </div>
+    </div>
+</div>
+<div class="container" id="tablero">
+    <div class="row">
+        <div class="col-sm">
+            <div id="cuadro-1" class="cuadro">A</div>
+        </div>
+        <div class="col-sm">
+            <div id="cuadro-2" class="cuadro">B</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <div id="cuadro-3" class="cuadro">C</div>
+        </div>
+        <div class="col-sm">
+            <div id="cuadro-4" class="cuadro">D</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  let secuenciaMaquina = [];
+  let secuenciaUsuario = [];
+  let ronda = 0;
+
+  document.querySelector('button[type=button]').onclick = comenzarJuego;
+
+  actualizarEstado('Tocá "Empezar" para jugar!');
+  actualizarNumeroRonda('-');
+  bloquearInputUsuario();
+
+  function comenzarJuego() {
+    reiniciarEstado();
+    manejarRonda();
+  }
+
+  function reiniciarEstado() {
+    secuenciaMaquina = [];
+    secuenciaUsuario = [];
+    ronda = 0;
+  }
+
+  function manejarRonda() {
+    actualizarEstado('Turno de la máquina');
+    bloquearInputUsuario();
+
+    const $nuevoCuadro = obtenerCuadroAleatorio();
+    secuenciaMaquina.push($nuevoCuadro);
+
+    const RETRASO_TURNO_JUGADOR = (secuenciaMaquina.length + 1) * 1000;
+
+    secuenciaMaquina.forEach(function($cuadro, index) {
+      const RETRASO_MS = (index + 1) * 1000;
+      setTimeout(function() {
+        resaltar($cuadro);
+      }, RETRASO_MS);
+    });
+
+    setTimeout(function() {
+      actualizarEstado('Turno del jugador');
+      desbloquearInputUsuario();
+    }, RETRASO_TURNO_JUGADOR);
+
+    secuenciaUsuario = [];
+    ronda++;
+    actualizarNumeroRonda(ronda);
+  }
+
+  function manejarInputUsuario(e) {
+    const $cuadro = e.target;
+    resaltar($cuadro);
+    secuenciaUsuario.push($cuadro);
+
+    const $cuadroMaquina = secuenciaMaquina[secuenciaUsuario.length - 1];
+    if ($cuadro.id !== $cuadroMaquina.id) {
+      perder();
+      return;
+    }
+
+    if (secuenciaUsuario.length === secuenciaMaquina.length) {
+      bloquearInputUsuario();
+      setTimeout(manejarRonda, 1000);
+    }
+  }
+
+  function obtenerCuadroAleatorio() {
+    const $cuadros = document.querySelectorAll('.cuadro');
+    const indice = Math.floor(Math.random() * $cuadros.length);
+    return $cuadros[indice];
+  }
+
+  function actualizarNumeroRonda(ronda) {
+    document.querySelector('#ronda').textContent = ronda;
+  }
+
+  function actualizarEstado(estado, error = false) {
+    const $estado = document.querySelector('#estado');
+    $estado.textContent = estado;
+    if (error) {
+      $estado.classList.remove('alert-primary');
+      $estado.classList.add('alert-danger');
+    } else {
+      $estado.classList.remove('alert-danger');
+      $estado.classList.add('alert-primary');
+    }
+  }
+
+  function resaltar($cuadro) {
+    $cuadro.style.opacity = 1;
+    setTimeout(function() {
+      $cuadro.style.opacity = 0.5;
+    }, 500);
+  }
+
+  function bloquearInputUsuario() {
+    document.querySelectorAll('.cuadro').forEach(function($cuadro) {
+      $cuadro.onclick = function() {
+      };
+    });
+  }
+
+  function desbloquearInputUsuario() {
+    document.querySelectorAll('.cuadro').forEach(function($cuadro) {
+      $cuadro.onclick = manejarInputUsuario;
+    });
+  }
+
+  function perder() {
+    bloquearInputUsuario();
+    actualizarEstado('Perdiste! Tocá "Empezar" para jugar de nuevo!', true);
+  }
+
+
+</script>
+</body>
+</html>
