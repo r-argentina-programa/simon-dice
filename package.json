@@ -20,6 +20,7 @@
   "homepage": "https://github.com/r-argentina-programa/simon-dice#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "cypress": "^3.7.0",
     "jquery": "^3.4.1"
   },
   "devDependencies": {
