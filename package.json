@@ -18,6 +18,6 @@
   "homepage": "https://github.com/r-argentina-programa/simon-dice#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   }
 }
