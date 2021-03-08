@@ -1,7 +1,9 @@
 # simon-dice
-Ejemplo de juego simon dice para r/Argentina programa
+ 
+ Tarea del curso "r/argentinaPrograma" de elaborar un "simón dice" sobre la base de lo aprendido anteriormente.
 
-## Instalación
-
-Correr
-`npm install`
+El stack utilizado es:
+1. JS vanilla
+2. HTML
+3. CSS
+4. Bootstrap
