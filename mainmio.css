@@ -29,12 +29,15 @@ input{
 .cuadro {
     font-family: 'Architects Daughter', cursive;
     height: 200px;
-    opacity: 0.5;
-    transition: opacity 500ms;
+
     align-content: center;
     border: 3px solid brown;
     border-radius: 1px;
     cursor: pointer;
+}
+.pulsado{
+    opacity: 0.5;
+    transition: opacity 500ms;
 }
 #PADA{
     background-color: #16a085;
