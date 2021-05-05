@@ -1,31 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
-body{
-    background-color: antiquewhite;
+body {
+    background-color: #34495e;
+}
+.displays, .button{
+    margin-top: 20px;
 }
 .displays{
     font-family: 'Architects Daughter', cursive;
-    color: #fd7e14;
+    color: #1d2e2b;
     font-weight: bolder;
-    background-color: #6610f2;
+    height: 150px;
+    font-size: 14px;
+    background-color: #2980b9;
     border: 3px solid black;
+}
+input{
+    max-width: 70px;
 }
 .button{
     font-family: 'Architects Daughter', cursive;
-    color: #fd7e14;
+    color: #c0392b;
     font-weight: bolder;
-    background-color: #adb5bd;
+    font-size: 24px;
+    height: 150px;
+    border: 3px solid black;
+    background-color: #3498db;
 }
 .cuadro {
     font-family: 'Architects Daughter', cursive;
     height: 200px;
     opacity: 0.5;
     transition: opacity 500ms;
-    background-color: aliceblue;
     align-content: center;
     border: 3px solid brown;
     border-radius: 1px;
     cursor: pointer;
 }
-p{
-    margin: auto;
+#PADA{
+    background-color: #16a085;
+    font-size: 60px;
+}
+#PADS{
+    background-color: #27ae60;
+    font-size: 60px;
+}
+#PADZ{
+    background-color: #f1c40f;
+    font-size: 60px;
+}
+#PADX{
+    align-content: center;
+    background-color: #e67e22;
+    font-size: 60px;
 }
