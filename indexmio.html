@@ -10,41 +10,42 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="bg-secondary">
     <div class="container">
-        <div class="row align-items-start">
-            <div class="col-md-4 p-4 displays">
-                <p>Status</p>
+        <div class="row align-items-start" id="DisplaysYBoton">
+            <div class="col-md-4 p-4 displays" id="status">
+                <p>Ingresá tu nombre y comenzá cuando estés listx!</p>
+                <input type="text" placeholder="jugador" name="nombre"/>
             </div>
-            <div class="col-md-4 p-4 displays">
-                <p>puntajes</p>
+            <div class="col-md-4 p-4 displays" id="puntajes">
+                <p>Puntaje actual:</p>
+                <p>Mejores puntajes:</p>
             </div>
-            <button class="col-md-4 p-4 button">
-                <p>asd</p>
+            <button class="col-md-4 p-4 button" id="botonComenzar">
+                <p>Comenzar!</p>
             </button>
-
         </div>
     </div>
     <div class="container" name="botones" id="botones">
         <div class="row">
-            <div class="col-sm cuadro">
-                <p>asdsafdfas</p>
+            <div class="col-sm cuadro" id="PADA">
+                <p>A</p>
             </div>
-            <div class="col-sm cuadro">
-                <p>Status</p>
+            <div class="col-sm cuadro" id="PADS">
+                <p>S</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm cuadro">
-                <p>Status</p>
+            <div class="col-sm cuadro" id="PADZ">
+                <p>Z</p>
             </div>
-            <div class="col-sm p-8 cuadro">
-                <p>Status</p>
+            <div class="col-sm p-8 cuadro" id="PADX">
+                <p>X</p>
             </div>
         </div>
     </div>
 
-    <script src='main.js'></script>
+    <script src='js.js'></script>
 </body>
 
 </html>
