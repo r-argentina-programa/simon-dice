@@ -64,10 +64,10 @@ function cambiarBoton(nombre){
 function countdown(texto){
     //esta funcion tiene que ser mejorada cuando tenga mejores conocimientos de async/await.
     const boton = document.getElementById("reset");
-    texto.forEach((text) => {        
-        setTimeout(() => {
+    texto.forEach((text, i) => {        
+        window.setTimeout(() => {
         boton.textContent = text;
-    }, 750);})}
+    }, 750 * i+1);})}
 /*
 const iniciarJuego = document.querySelector("#iniciarJuego");
 iniciarJuego.onclick = function (event){
