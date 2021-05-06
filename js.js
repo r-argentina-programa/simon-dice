@@ -74,7 +74,7 @@ function cambiarBoton(nombre) {
     boton.id = nombre;
     boton.className = "col-md-4 p-4 button";
     contenedorDisplaysYBoton.appendChild(boton);
-    countdown(["1", "2", "3", "YA!", "Reiniciar"]) //<--este countdown no puede estar aca
+    countdown(["1", "2", "3", "YA!", "Reiniciar"])
 }
 
 function countdown(texto) {
@@ -106,29 +106,17 @@ function escucharUsuario() {
         cuadro.onclick = manejarInput;
     }
     )
-
-    /*const $cuadroMaquina = secuenciaMaquina[secuenciaUsuario.length - 1];
-    if ($cuadro.id !== $cuadroMaquina.id) {
-      perder();
-      return;
-    }
-
-    if (secuenciaUsuario.length === secuenciaMaquina.length) {
-      bloquearInputUsuario();
-      setTimeout(manejarRonda, 1000);
-    }
-  }*/
 }
-function checkearIgualdad(cuadroID){
+function checkearIgualdad(cuadroID) {
     const cuadroMaquina = secuenciaMaquina[secuenciaJugador.length - 1];
     if (cuadroID !== cuadroMaquina) {
-      console.log("perdiste");
-      return;
+        console.log("perdiste");
+        return;
     }
     if (secuenciaJugador.length === secuenciaMaquina.length) {
-      setTimeout(iniciarRonda, 1000, ronda+1);
+        setTimeout(iniciarRonda, 1000, ronda + 1);
     }
-  }
+}
 
 
 /*
