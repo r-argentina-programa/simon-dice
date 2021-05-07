@@ -2,6 +2,7 @@ const padA = document.getElementById("PADA");
 const padS = document.getElementById("PADS");
 const padZ = document.getElementById("PADZ");
 const padX = document.getElementById("PADX");
+
 const boton = document.getElementById("Comenzar");
 const status = document.querySelector("#status");
 let secuenciaMaquina = []
@@ -95,8 +96,11 @@ function countdown(texto) {
 }
 function resaltar(cuadro) {
     const pulsado = cuadro;
-    const pad = document.getElementById(pulsado);
-    pad.className = "col-sm cuadro pulsado"
+    const pad = document.getElementById(pulsado);    
+    const sonidoId = pulsado + 'sonido';
+    const sonido = document.getElementById(sonidoId);
+    pad.className = "col-sm cuadro pulsado";
+    sonido.play();
     window.setTimeout(() => {
         pad.className = "col-sm cuadro"
     }, 750);
