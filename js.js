@@ -6,23 +6,40 @@ const boton1 = document.getElementById("botonComenzar");
 const status = document.querySelector("#status");
 let secuenciaMaquina = []
 let secuenciaJugador = []
-let ronda = 1;
-
 
 boton1.onclick = function () {
-    actualizarDisplay();
+    let nombre = obtenerNombre();
+    actualizarDisplay(nombre);
+    actualizarContadorConNombre(nombre);
     cambiarBoton("reset");
-    iniciarRonda(ronda);
-
+    iniciarRonda();
 }
-function actualizarDisplay() {
+function obtenerNombre() {
     const status = document.querySelector("#status");
     const nombre = status.lastElementChild.value;
+    return nombre
+}
+
+function actualizarDisplay(nombre) {
     const display = document.getElementById("status");
     display.innerText = `Muy bien, ${nombre}! Presta atención al orden en el que aprieta la computadora!`;
 }
-function iniciarRonda(ronda) {
-    const array = generarRandom(ronda)
+
+function actualizarContadorConNombre(nombre) {
+    const display = document.getElementById("puntajeNombre");
+    display.innerText = `${nombre}`;
+}
+
+function actualizarContadorConRondas(rondaActual) {
+    const display = document.getElementById("puntajeRonda");
+    display.innerText = ` está en la ronda número ${rondaActual}`;
+}
+
+function iniciarRonda() {
+    let rondaActual = secuenciaMaquina.length + 1;
+    secuenciaJugador = [];
+    actualizarContadorConRondas(rondaActual)
+    const array = generarRandom(rondaActual);
     jugadaComputadora(array);
     setTimeout(() => {
         escucharUsuario();
@@ -37,7 +54,7 @@ function iniciarRonda(ronda) {
 function generarRandom(input) {
     const array = [];
     let ronda = input;
-    for (ronda; ronda > 0; ronda--) {
+    for (input; input > 0; input--) {
         const numero = Math.floor(Math.random() * 4);
         switch (numero) {
             case 1:
@@ -64,6 +81,8 @@ function jugadaComputadora(array) {
             resaltar(cuadro);
         }, 750 * (i + 4));
     })
+    const display = document.getElementById("status");
+    display.innerText = `Ahora es tu turno de la computadora!`;
 }
 
 function cambiarBoton(nombre) {
@@ -114,11 +133,14 @@ function checkearIgualdad(cuadroID) {
         return;
     }
     if (secuenciaJugador.length === secuenciaMaquina.length) {
-        setTimeout(iniciarRonda, 1000, ronda + 1);
+        setTimeout(iniciarRonda, 1000);
     }
 }
 
 
 /*
-funcion que cree un array con las puezas a tocar.
+hay que hacer una funcionq ue avise que perdiste y corte todo el juego
+hacer una funcion de reinicio con el boton de reinicio
+
+ver lo de los puntajes maximos???
 //function*/
