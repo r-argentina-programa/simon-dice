@@ -2,22 +2,25 @@ const padA = document.getElementById("PADA");
 const padS = document.getElementById("PADS");
 const padZ = document.getElementById("PADZ");
 const padX = document.getElementById("PADX");
-const boton1 = document.getElementById("botonComenzar");
+const boton = document.getElementById("Comenzar");
 const status = document.querySelector("#status");
 let secuenciaMaquina = []
 let secuenciaJugador = []
+let nombre = prompt("Ingresa tu nombre!");
+insertarNombre(nombre)
 
-boton1.onclick = function () {
-    let nombre = obtenerNombre();
+boton.onclick = function () {
     actualizarDisplay(nombre);
     actualizarContadorConNombre(nombre);
-    cambiarBoton("reset");
+    countdown(["1", "2", "3", "YA!", "Comenzar"]);
     iniciarRonda();
 }
-function obtenerNombre() {
+
+function insertarNombre(nombre) {
     const status = document.querySelector("#status");
-    const nombre = status.lastElementChild.value;
-    return nombre
+    const display = document.createElement("p");
+    display.innerText = `Bienvenido, ${nombre}. Vamos a jugar un poco a "Simón dice!"`
+    status.appendChild(display)
 }
 
 function actualizarDisplay(nombre) {
@@ -27,12 +30,13 @@ function actualizarDisplay(nombre) {
 
 function actualizarContadorConNombre(nombre) {
     const display = document.getElementById("puntajeNombre");
-    display.innerText = `${nombre}`;
+    display.innerText = `Vamos, ${nombre}!`;
 }
 
 function actualizarContadorConRondas(rondaActual) {
     const display = document.getElementById("puntajeRonda");
-    display.innerText = ` está en la ronda número ${rondaActual}`;
+    display.textContent = "";
+    display.textContent = ` Estás en la ronda número ${rondaActual}`;
 }
 
 function iniciarRonda() {
@@ -46,9 +50,6 @@ function iniciarRonda() {
         const display = document.getElementById("status");
         display.innerText = `Ahora es tu turno!`;
     }, 1000 * (array.length + 4));
-    //escucharAlUsuario
-    //if pierde display perdiste!
-    //if gana ejecutar generar random con + dificultad
 }
 
 function generarRandom(input) {
@@ -84,20 +85,8 @@ function jugadaComputadora(array) {
     const display = document.getElementById("status");
     display.innerText = `Ahora es tu turno de la computadora!`;
 }
-
-function cambiarBoton(nombre) {
-    const contenedorDisplaysYBoton = document.querySelector("#DisplaysYBoton");
-    const botonAnterior = document.querySelector("#botonComenzar");
-    contenedorDisplaysYBoton.removeChild(botonAnterior);
-    const boton = document.createElement("button");
-    boton.id = nombre;
-    boton.className = "col-md-4 p-4 button";
-    contenedorDisplaysYBoton.appendChild(boton);
-    countdown(["1", "2", "3", "YA!", "Reiniciar"])
-}
-
 function countdown(texto) {
-    const boton = document.getElementById("reset");
+    const boton = document.getElementById("Comenzar");
     texto.forEach((text, i) => {
         window.setTimeout(() => {
             boton.textContent = text;
@@ -120,16 +109,24 @@ function manejarInput(e) {
     secuenciaJugador.push(cuadroID);
     checkearIgualdad(cuadroID);
 }
-function escucharUsuario() {
-    document.querySelectorAll('.cuadro').forEach(function (cuadro) {
-        cuadro.onclick = manejarInput;
+function escucharUsuario(perdio) {
+    if (!perdio) {
+        document.querySelectorAll('.cuadro').forEach(function (cuadro) {
+            cuadro.onclick = manejarInput;
+        })
     }
-    )
-}
+    if (perdio) {
+        document.querySelectorAll('.cuadro').forEach(function (cuadro) {
+            cuadro.onclick = "";
+        })
+
+    }
+};
+
 function checkearIgualdad(cuadroID) {
     const cuadroMaquina = secuenciaMaquina[secuenciaJugador.length - 1];
     if (cuadroID !== cuadroMaquina) {
-        console.log("perdiste");
+        perdiste();
         return;
     }
     if (secuenciaJugador.length === secuenciaMaquina.length) {
@@ -137,10 +134,12 @@ function checkearIgualdad(cuadroID) {
     }
 }
 
-
-/*
-hay que hacer una funcionq ue avise que perdiste y corte todo el juego
-hacer una funcion de reinicio con el boton de reinicio
-
-ver lo de los puntajes maximos???
-//function*/
+function perdiste() {
+    secuenciaMaquina = [];
+    secuenciaJugador = [];
+    const display = document.getElementById("puntajeRonda");
+    display.textContent = "";
+    display.textContent = `Qué lástima! Has perdido! Clickea en "Comenzar" para jugar nuevamente!`;
+    let perdio = 1;
+    escucharUsuario(perdio);
+}
